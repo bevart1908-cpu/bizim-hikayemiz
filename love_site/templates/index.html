@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bizim Hikâyemiz ❤️</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-card">
+      <h1>Merhaba {{ isim }}</h1>
+      <p class="sub">Bu siteyi senin için hazırladım balım.TÜBİTAK GELSİN  SİTE GÖRSÜN</p>
+
+      <div class="countdown">
+        <div class="count-num">{{ kalan_gun }}</div>
+        <div class="count-text">gün kaldı 🎂</div>
+      </div>
+
+      {% if kilitli %}
+  <p class="lock-text">
+    🎁 Sürpriz doğum gününde açılacak…<br>
+    Şimdilik sadece geri sayımı izleyebilirsin 💖
+  </p>
+
+  <button class="primary disabled-btn" type="button" disabled>
+    Kilitli 🔒
+  </button>
+{% else %}
+  <p class="lock-text unlocked">
+    🎉 Bugün senin günün! Site açıldı ❤️
+  </p>
+
+  <button class="primary" type="button" onclick="scrollToSection('story')">
+    Başla 💖
+  </button>
+{% endif %}
+
+    </div>
+  </section>
+{% if kilitli %}
+  <p class="lock-text">
+    🎁 Sürpriz doğum gününde açılacak…<br>
+    Şimdilik sadece geri sayımı izleyebilirsin 💖
+  </p>
+  <button class="primary disabled-btn" type="button" disabled>
+    Kilitli 🔒
+  </button>
+{% else %}
+  <p class="lock-text unlocked">
+    🎉 Bugün senin günün! Site açıldı ❤️
+  </p>
+  <button class="primary" onclick="scrollToSection('story')" type="button">
+    Başla 💖
+  </button>
+{% endif %}
+
+
+  <!-- STORY -->
+  <section id="story" class="section">
+    <div class="card">
+      <h2>📖 Bizim Hikâyemiz</h2>
+
+      <ul class="timeline">
+  <li>
+    <span>1.</span>
+    İlk tanıştığımız gün, Gebze TÜBİTAK Yerleşkesi’nde ilk tokalaştığımızda
+    kalbim hızlandı ama bunu belli etmemeye çalıştım.
+  </li>
+
+  <li>
+    <span>2.</span>
+    Sonra sen bana iş attın ve beni yoldan cıkardın (TABİKİ DE ŞAKA) ben de sana yazdımmmmm(Beni yoldan cıkardığın için)
+  </li>
+
+  <li>
+    <span>3.</span>
+    Günler geçti, anılar birikti
+    ve ben her gün seni biraz daha sevdim.
+  </li>
+</ul>
+
+  </section>
+
+  <!-- MAP: TÜBİTAK GEBZE -->
+  <section class="section">
+    <div class="card">
+      <h2>📍 İlk Tanıştığımız Yer</h2>
+      <p>Gebze TÜBİTAK Yerleşkesi… her şeyin başladığı yer ❤️</p>
+
+      <div class="map-wrap">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3020.85155337083!2d29.454790975698774!3d40.78727757138242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cb205149ace2b7%3A0xaa60950c0a5c5e2b!2zVMOcQsSwVEFLIEdlYnplIFllcmxlxZ9rZXNpLCBHZWJ6ZS9Lb2NhZWxp!5e0!3m2!1sen!2str!4v1767181378852!5m2!1sen!2str"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <p class="hint">📌 “Burada başlayan hikâye…”</p>
+    </div>
+  </section>
+
+  <!-- QUIZ (skorlu JS sürümü için) -->
+  <section class="section">
+    <div class="card">
+      <h2>🎯 Mini Quiz</h2>
+      <div id="quizBox"></div>
+    </div>
+  </section>
+
+  <!-- FINAL MESSAGE AREA (JS burayı dolduruyor) -->
+  <section class="section" id="finalMessage">
+    <div class="card">
+      <h2>💖 Final</h2>
+      <p class="hint">Quiz bitince burası açılacak…</p>
+    </div>
+  </section>
+<!-- 💌 Sevgi Mesajı Butonu -->
+<section class="section">
+  <div class="card">
+    <h2>💌 Bugünün Mesajı</h2>
+    <p id="loveText" class="love-text">Butona bas… 💖</p>
+    <button class="primary" type="button" onclick="newLoveMessage()">Yeni Mesaj</button>
+  </div>
+</section>
+
+<!-- 🎵 Müzik -->
+<section class="section">
+  <div class="card">
+    <h2>🎵 Bizim Şarkı</h2>
+    <p class="hint">Butona basınca çalar / durur.</p>
+    <button class="primary" type="button" onclick="toggleMusic()">Play / Pause</button>
+    <audio id="bgMusic" src="{{ url_for('static', filename='music/song_v2.mp3') }}"></audio>
+  </div>
+</section>
+
+<!-- 📸 Galeri -->
+<section class="section">
+  <div class="card">
+    <h2>📸 Anılar</h2>
+
+    <div class="gallery">
+      <div class="ph">
+        <img src="{{ url_for('static', filename='photos/1.jpg') }}" alt="anı 1">
+        <div class="cap">İlk gülüşün… o an içim ısındı ❤️</div>
+      </div>
+
+      <div class="ph">
+        <img src="{{ url_for('static', filename='photos/2.jpg') }}" alt="anı 2">
+        <div class="cap">Bu foto: “iyi ki” dediğim günlerden ✨</div>
+      </div>
+
+      <div class="ph">
+        <img src="{{ url_for('static', filename='photos/3.jpg') }}" alt="anı 3">
+        <div class="cap">Beraberken zaman hep daha hızlı geçiyor 🥹</div>
+      </div>
+
+      <div class="ph">
+        <img src="{{ url_for('static', filename='photos/4.jpg') }}" alt="anı 4">
+        <div class="cap">Şu anı asla unutmayacağım 💖</div>
+      </div>
+
+      <div class="ph">
+        <img src="{{ url_for('static', filename='photos/5.jpg') }}" alt="anı 5">
+        <div class="cap">En güzel tesadüf: sen 🍀</div>
+      </div>
+
+      <div class="ph">
+        <img src="{{ url_for('static', filename='photos/6.jpg') }}" alt="anı 6">
+        <div class="cap">Her şeyin başladığı hikâyeye teşekkür ederim 📍</div>
+      </div>
+    </div>
+
+    <p class="hint">Foto üstüne gelince yazılar çıkacak 😉</p>
+  </div>
+</section>
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>
+      Kod yazmayı seviyorum ama…<br>
+      seni sevmek daha kolay.<br><br>
+      <strong>İyi ki doğdun ❤️</strong>
+    </p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+<!-- 📸 Lightbox (Foto büyütme) -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-content">
+    <img id="lightboxImg" src="" alt="anı">
+    <div id="lightboxCap" class="lightbox-cap"></div>
+    <button class="lightbox-close" type="button" onclick="forceCloseLightbox()">×</button>
+  </div>
+</div>
+
+<body class="{% if kilitli %}locked{% endif %}">
+
+</html>
